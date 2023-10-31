@@ -3,19 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.club.ysm</groupId>
-        <artifactId>Dubbo3-test</artifactId>
+        <artifactId>business</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
-    <groupId>cn.club.ysm</groupId>
-    <artifactId>business</artifactId>
-    <name>Archetype - business</name>
+    <artifactId>user</artifactId>
+    <name>Archetype - user</name>
     <url>http://maven.apache.org</url>
-    <modules>
-        <module>goods</module>
-        <module>order</module>
-        <module>search</module>
-        <module>interaction</module>
-        <module>user</module>
-    </modules>
 </project>

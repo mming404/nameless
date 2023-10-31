@@ -24,6 +24,8 @@
     <module>business/interaction</module>
     <module>common/common-api/interaction-api</module>
     <module>common/common-kafka</module>
+    <module>business/user</module>
+    <module>business/user</module>
   </modules>
 
   <parent>
