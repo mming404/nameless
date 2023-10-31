@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <groupId>cn.club.ysm</groupId>
     <artifactId>common-api</artifactId>
-    <name>Archetype - common-api</name>
+    <name>common-api</name>
     <url>http://maven.apache.org</url>
 
     <modules>
@@ -17,5 +17,6 @@
         <module>search-api</module>
         <module>order-api</module>
         <module>interaction-api</module>
+        <module>user-api</module>
     </modules>
 </project>

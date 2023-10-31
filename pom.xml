@@ -14,18 +14,6 @@
     <module>common</module>
     <module>gateway</module>
     <module>business</module>
-    <module>common/common-api</module>
-    <module>business/order</module>
-    <module>business/goods</module>
-    <module>business/search</module>
-    <module>common/common-api/goods-api</module>
-    <module>common/common-api/order-api</module>
-    <module>common/common-api/search-api</module>
-    <module>business/interaction</module>
-    <module>common/common-api/interaction-api</module>
-    <module>common/common-kafka</module>
-    <module>business/user</module>
-    <module>business/user</module>
   </modules>
 
   <parent>

@@ -8,7 +8,7 @@
     </parent>
     <groupId>cn.club.ysm</groupId>
     <artifactId>order</artifactId>
-    <name>Archetype - order</name>
+    <name>order</name>
     <url>http://maven.apache.org</url>
 
     <properties>

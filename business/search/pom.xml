@@ -8,7 +8,7 @@
     </parent>
     <groupId>cn.club.ysm</groupId>
     <artifactId>search</artifactId>
-    <name>Archetype - search</name>
+    <name>search</name>
     <url>http://maven.apache.org</url>
 
     <properties>
