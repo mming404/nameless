@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.e</groupId>
+        <artifactId>Dubbo3-test</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modules>
+        <module>common-core</module>
+        <module>common-log</module>
+        <module>common-security</module>
+        <module>common-seata</module>
+        <module>common-redis</module>
+        <module>common-api</module>
+        <module>common-kafka</module>
+    </modules>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <artifactId>common</artifactId>
+    <description>hth-common通用模块</description>
+
+</project>

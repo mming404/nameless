@@ -11,6 +11,19 @@
     <module>dubbo-common</module>
     <module>dubbo-consumer</module>
     <module>dubbo-provider</module>
+    <module>common</module>
+    <module>gateway</module>
+    <module>business</module>
+    <module>common/common-api</module>
+    <module>business/order</module>
+    <module>business/goods</module>
+    <module>business/search</module>
+    <module>common/common-api/goods-api</module>
+    <module>common/common-api/order-api</module>
+    <module>common/common-api/search-api</module>
+    <module>business/interaction</module>
+    <module>common/common-api/interaction-api</module>
+    <module>common/common-kafka</module>
   </modules>
 
   <parent>
@@ -23,97 +36,289 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <ruoyi.version>3.6.3</ruoyi.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <spring-boot.version>3.1.1</spring-boot.version>
+    <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+    <swagger.fox.version>3.0.0</swagger.fox.version>
+    <swagger.core.version>1.6.2</swagger.core.version>
+    <tobato.version>1.27.2</tobato.version>
+    <kaptcha.version>2.3.3</kaptcha.version>
+    <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
+    <druid.version>1.2.16</druid.version>
+    <dynamic-ds.version>3.5.2</dynamic-ds.version>
+    <commons.io.version>2.13.0</commons.io.version>
+    <velocity.version>2.3</velocity.version>
+    <fastjson.version>2.0.39</fastjson.version>
+    <jjwt.version>0.9.1</jjwt.version>
+    <minio.version>8.2.2</minio.version>
+    <poi.version>4.1.2</poi.version>
+    <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
+    <mybatis-plus.version>3.3.2</mybatis-plus.version>
+    <mysql.version>8.0.31</mysql.version>
+    <junit-jupiter.version>5.5.2</junit-jupiter.version>
+    <revision>1.0.0</revision>
+    <hutool.version>5.8.9</hutool.version>
+    <dubbo.version>3.2.0</dubbo.version>
+    <shardingsphere.version>5.2.0</shardingsphere.version>
   </properties>
 
 
-  <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.28</version>
-    </dependency>
+  <!-- 依赖声明 -->
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- SpringBoot 依赖配置 -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- FastDFS 分布式文件系统 -->
+      <dependency>
+        <groupId>com.github.tobato</groupId>
+        <artifactId>fastdfs-client</artifactId>
+        <version>${tobato.version}</version>
+      </dependency>
+
+      <!-- Swagger 依赖配置 -->
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-models</artifactId>
+        <version>${swagger.core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger.core.version}</version>
+      </dependency>
+
+      <!-- 验证码 -->
+      <dependency>
+        <groupId>pro.fessional</groupId>
+        <artifactId>kaptcha</artifactId>
+        <version>${kaptcha.version}</version>
+      </dependency>
+
+      <!-- pagehelper 分页插件 -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.boot.version}</version>
+      </dependency>
+
+      <!-- io常用工具类 -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.15</version>
+      </dependency>
+
+      <!-- excel工具 -->
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>${poi.version}</version>
+      </dependency>
+
+      <!-- 代码生成使用模板 -->
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity-engine-core</artifactId>
+        <version>${velocity.version}</version>
+      </dependency>
+
+      <!-- JSON 解析器和生成器 -->
+      <dependency>
+        <groupId>com.alibaba.fastjson2</groupId>
+        <artifactId>fastjson2</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+
+      <!-- JWT -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+
+      <!-- 线程传递值 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>transmittable-thread-local</artifactId>
+        <version>${transmittable-thread-local.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.e</groupId>
+        <artifactId>common-core</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.e</groupId>
+        <artifactId>common-security</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.e</groupId>
+        <artifactId>common-redis</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+<!--      <dependency>-->
+<!--        <groupId>org.mybatis.spring.boot</groupId>-->
+<!--        <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--        <version>${mybatis-starter.version}</version>-->
+<!--      </dependency>-->
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>3.3.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit-jupiter.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.dubbo</groupId>
+        <artifactId>dubbo-dependencies</artifactId>
+        <version>${dubbo.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.dubbo</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>${dubbo.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+
+<!--  <dependencies>-->
+<!--    <dependency>-->
+<!--      <groupId>org.projectlombok</groupId>-->
+<!--      <artifactId>lombok</artifactId>-->
+<!--      <version>1.18.28</version>-->
+<!--    </dependency>-->
+
+<!--&lt;!&ndash;    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;      <groupId>org.slf4j</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <artifactId>slf4j-api</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <version>1.8.0-beta4</version>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;      <groupId>ch.qos.logback</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <artifactId>logback-classic</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <version>1.4.5</version>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependency>&ndash;&gt;-->
 
 <!--    <dependency>-->
-<!--      <groupId>org.slf4j</groupId>-->
-<!--      <artifactId>slf4j-api</artifactId>-->
-<!--      <version>1.8.0-beta4</version>-->
+<!--      <groupId>org.apache.dubbo</groupId>-->
+<!--      <artifactId>dubbo-registry-nacos</artifactId>-->
+<!--      <version>3.2.0</version>-->
 <!--    </dependency>-->
+
+<!--    &lt;!&ndash; Alibaba Fastjson &ndash;&gt;-->
 <!--    <dependency>-->
-<!--      <groupId>ch.qos.logback</groupId>-->
-<!--      <artifactId>logback-classic</artifactId>-->
-<!--      <version>1.4.5</version>-->
-<!--    </dependency>-->
-
-    <dependency>
-      <groupId>org.apache.dubbo</groupId>
-      <artifactId>dubbo-registry-nacos</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-
-    <!-- Alibaba Fastjson -->
-    <dependency>
-      <groupId>com.alibaba.fastjson2</groupId>
-      <artifactId>fastjson2</artifactId>
-      <version>2.0.39</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.dubbo</groupId>
-      <artifactId>dubbo</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.dubbo</groupId>
-      <artifactId>dubbo-spring-boot-starter</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka-clients</artifactId>
-      <version>3.5.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.kafka</groupId>
-      <artifactId>spring-kafka</artifactId>
-      <version>3.0.10</version>
-    </dependency>
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-all</artifactId>
-      <version>5.8.9</version>
-    </dependency>
-    <!--    <dependency>-->
-<!--      <groupId>com.alibaba.nacos</groupId>-->
-<!--      <artifactId>nacos-client</artifactId>-->
-<!--      <version>2.2.3</version>-->
+<!--      <groupId>com.alibaba.fastjson2</groupId>-->
+<!--      <artifactId>fastjson2</artifactId>-->
+<!--      <version>2.0.39</version>-->
 <!--    </dependency>-->
 
 <!--    <dependency>-->
 <!--      <groupId>org.apache.dubbo</groupId>-->
-<!--      <artifactId>dubbo-serialization-fst</artifactId>-->
-<!--      <version>2.7.23</version>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <artifactId>dubbo-common</artifactId>-->
-<!--          <groupId>org.apache.dubbo</groupId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
+<!--      <artifactId>dubbo</artifactId>-->
+<!--      <version>3.2.0</version>-->
 <!--    </dependency>-->
 
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-test</artifactId>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.dubbo</groupId>-->
+<!--      <artifactId>dubbo-spring-boot-starter</artifactId>-->
+<!--      <version>3.2.0</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-web</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.kafka</groupId>-->
+<!--      <artifactId>kafka-clients</artifactId>-->
+<!--      <version>3.5.1</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.kafka</groupId>-->
+<!--      <artifactId>spring-kafka</artifactId>-->
+<!--      <version>3.0.10</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>cn.hutool</groupId>-->
+<!--      <artifactId>hutool-all</artifactId>-->
+<!--      <version>5.8.9</version>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash;    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;      <groupId>com.alibaba.nacos</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <artifactId>nacos-client</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <version>2.2.3</version>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependency>&ndash;&gt;-->
 
-  </dependencies>
+<!--&lt;!&ndash;    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;      <groupId>org.apache.dubbo</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <artifactId>dubbo-serialization-fst</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;      <version>2.7.23</version>&ndash;&gt;-->
+<!--&lt;!&ndash;      <exclusions>&ndash;&gt;-->
+<!--&lt;!&ndash;        <exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;          <artifactId>dubbo-common</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;          <groupId>org.apache.dubbo</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;      </exclusions>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependency>&ndash;&gt;-->
+
+
+<!--  </dependencies>-->
 </project>
