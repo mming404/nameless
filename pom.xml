@@ -227,6 +227,12 @@
         <version>${shardingsphere.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.springframework.kafka</groupId>
+        <artifactId>spring-kafka</artifactId>
+        <version>3.0.10</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -291,11 +297,7 @@
 <!--      <artifactId>kafka-clients</artifactId>-->
 <!--      <version>3.5.1</version>-->
 <!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.kafka</groupId>-->
-<!--      <artifactId>spring-kafka</artifactId>-->
-<!--      <version>3.0.10</version>-->
-<!--    </dependency>-->
+
 <!--    <dependency>-->
 <!--      <groupId>cn.hutool</groupId>-->
 <!--      <artifactId>hutool-all</artifactId>-->
