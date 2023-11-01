@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.club.ysm</groupId>
-  <artifactId>Dubbo3-test</artifactId>
+  <artifactId>nameless</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Archetype - Dubbo3-test</name>
+  <name>nameless</name>
   <url>http://maven.apache.org</url>
   <modules>
     <module>dubbo-common</module>
@@ -53,12 +53,20 @@
     <hutool.version>5.8.9</hutool.version>
     <dubbo.version>3.2.0</dubbo.version>
     <shardingsphere.version>5.2.0</shardingsphere.version>
+    <druid.version>1.2.8</druid.version>
+    <sa.version>1.37.0</sa.version>
   </properties>
 
 
   <!-- 依赖声明 -->
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
 
       <!-- SpringBoot 依赖配置 -->
       <dependency>
@@ -222,6 +230,14 @@
         <artifactId>spring-kafka</artifactId>
         <version>3.0.10</version>
       </dependency>
+
+      <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-spring-boot3-starter</artifactId>
+        <version>${sa.version}</version>
+      </dependency>
+
+
 
     </dependencies>
   </dependencyManagement>
