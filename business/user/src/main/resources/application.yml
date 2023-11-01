@@ -1,5 +1,5 @@
 server:
-  port: 8884
+  port: 8080
 
 spring:
   application:
@@ -81,5 +81,11 @@ dubbo:
     address: nacos://10.21.23.34:8848?username=nacos&password=nacos
 
 mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #配置逻辑删除字段
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+  #sql打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

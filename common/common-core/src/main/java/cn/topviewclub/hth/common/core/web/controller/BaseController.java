@@ -1,10 +1,10 @@
 package cn.topviewclub.hth.common.core.web.controller;
 
 import cn.topviewclub.hth.common.core.constant.HttpStatusConstants;
-import cn.topviewclub.hth.common.core.utils.PageUtils;
+//import cn.topviewclub.hth.common.core.utils.PageUtils;
 import cn.topviewclub.hth.common.core.web.domain.AjaxResult;
 import cn.topviewclub.hth.common.core.web.page.TableDataInfo;
-import com.github.pagehelper.PageInfo;
+//import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -32,32 +32,32 @@ public class BaseController {
     /**
      * 设置请求分页数据
      */
-    protected void startPage()
-    {
-        PageUtils.startPage();
-    }
-
-    /**
-     * 清理分页的线程变量
-     */
-    protected void clearPage()
-    {
-        PageUtils.clearPage();
-    }
+//    protected void startPage()
+//    {
+//        PageUtils.startPage();
+//    }
+//
+//    /**
+//     * 清理分页的线程变量
+//     */
+//    protected void clearPage()
+//    {
+//        PageUtils.clearPage();
+//    }
 
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    protected TableDataInfo getDataTable(List<?> list)
-    {
-        TableDataInfo rspData = new TableDataInfo();
-        rspData.setCode(HttpStatusConstants.SUCCESS);
-        rspData.setRows(list);
-        rspData.setMsg("查询成功");
-        rspData.setTotal(new PageInfo(list).getTotal());
-        return rspData;
-    }
+//    @SuppressWarnings({ "rawtypes", "unchecked" })
+//    protected TableDataInfo getDataTable(List<?> list)
+//    {
+//        TableDataInfo rspData = new TableDataInfo();
+//        rspData.setCode(HttpStatusConstants.SUCCESS);
+//        rspData.setRows(list);
+//        rspData.setMsg("查询成功");
+//        rspData.setTotal(new PageInfo(list).getTotal());
+//        return rspData;
+//    }
 
     /**
      * 返回成功

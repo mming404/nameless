@@ -26,7 +26,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <ruoyi.version>3.6.3</ruoyi.version>
+<!--    <ruoyi.version>3.6.3</ruoyi.version>-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
@@ -55,6 +55,7 @@
     <shardingsphere.version>5.2.0</shardingsphere.version>
     <druid.version>1.2.8</druid.version>
     <sa.version>1.37.0</sa.version>
+    <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
   </properties>
 
 
@@ -184,7 +185,7 @@
       <dependency>
         <groupId>com.baomidou</groupId>
         <artifactId>mybatis-plus-boot-starter</artifactId>
-        <version>3.3.2</version>
+        <version>${mybatis-plus.version}</version>
       </dependency>
 
       <dependency>

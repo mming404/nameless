@@ -17,6 +17,10 @@
     </properties>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -51,20 +55,16 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>cn.club.ysm</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>cn.club.ysm</groupId>
-            <artifactId>common-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.club.ysm</groupId>-->
+<!--            <artifactId>common-security</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -76,21 +76,29 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
             <version>3.2.0</version>
         </dependency>
-
+        <!-- MySql驱动 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- MyBatisPlus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+
+
 
         <dependency>
             <groupId>cn.club.ysm</groupId>
@@ -103,4 +111,7 @@
         </dependency>
 
     </dependencies>
+
+
+
 </project>
