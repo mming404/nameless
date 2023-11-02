@@ -8,9 +8,6 @@
   <name>nameless</name>
   <url>http://maven.apache.org</url>
   <modules>
-    <module>dubbo-common</module>
-    <module>dubbo-consumer</module>
-    <module>dubbo-provider</module>
     <module>common</module>
     <module>gateway</module>
     <module>business</module>

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8884
 
 spring:
   application:
@@ -35,6 +35,27 @@ spring:
         deny:
       test-while-idle: true
       test-on-borrow: true
+
+  #redis集群配置
+  data:
+    redis:
+      password: hthredis
+      cluster:
+        nodes: 10.21.23.149:6371,10.21.23.149:6372,10.21.23.34:6373,10.21.23.34:6374,10.21.23.150:6375,10.21.23.150:6376
+        max-redirects: 3
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-wait: -1ms
+          max-active: 8
+        cluster:
+          refresh:
+            adaptive: true
+            period: 2000
+
+
+
   # 卡夫卡配置
   kafka:
     bootstrap-servers: 10.21.23.9:9092
@@ -54,7 +75,7 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      max-poll-records: 500
+      max-poll-records: 50
     listener:
       # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
       # RECORD
@@ -71,7 +92,9 @@ spring:
       # 手动调用Acknowledgment.acknowledge()后立即提交，一般使用这种
       # MANUAL_IMMEDIATE
       ack-mode: MANUAL_IMMEDIATE
+      type: batch
 
+#dubbo配置
 dubbo:
   protocol:
     name: dubbo
@@ -80,6 +103,7 @@ dubbo:
   registry:
     address: nacos://10.21.23.34:8848?username=nacos&password=nacos
 
+#mp配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #配置逻辑删除字段

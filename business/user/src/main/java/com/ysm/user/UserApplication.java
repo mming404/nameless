@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2023/11/1
  * @Version V1.0
  **/
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.ysm.user","com.ysm.common"})
 @EnableDubbo
 @MapperScan("com.ysm.user.mapper")
 public class UserApplication {

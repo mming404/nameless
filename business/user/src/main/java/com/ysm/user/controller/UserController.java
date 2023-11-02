@@ -1,8 +1,7 @@
 package com.ysm.user.controller;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-import com.ysm.user.mapper.UserMapper;
+import com.alibaba.fastjson2.JSON;
+import com.ysm.common.redis.service.RedisService;
 import com.ysm.user.po.User;
 import com.ysm.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RedisService redisService;
+
     @GetMapping("/testMp")
     public String testMp(){
 //        User user = new User();
@@ -42,9 +44,14 @@ public class UserController {
 ////        user.setDeleted((byte) 0);
 //        userService.save(user);
         User user = userService.getById(1719711995323564033L);
+        redisService.setCacheObject("user", user);
+        User user1 = redisService.getCacheObject("user");
+        System.out.println(user1);
 //        user.setNickName("ysmhhh");
 //        userService.updateById(user);
 //        userService.removeById(user);
+
+
         return "success";
     }
 }
