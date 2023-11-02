@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysm.goods.mapper.GoodsMapper">
+
+    <resultMap id="BaseResultMap" type="com.ysm.goods.po.Goods">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="detail" column="detail" jdbcType="VARCHAR"/>
+            <result property="mainImgUrl" column="main_img_url" jdbcType="VARCHAR"/>
+            <result property="imgUrls" column="img_urls" jdbcType="VARCHAR"/>
+            <result property="videoUrl" column="video_url" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+<!--    <sql id="Base_Column_List">-->
+<!--        id,category_id,user_id,-->
+<!--        name,title,detail,-->
+<!--        main_img_url,img_urls,video_url,-->
+<!--        price,status,created_at,-->
+<!--        updated_at,deleted-->
+<!--    </sql>-->
+</mapper>
