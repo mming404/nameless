@@ -59,6 +59,7 @@ spring:
   # 卡夫卡配置
   kafka:
     bootstrap-servers: 10.21.23.9:9092
+
     # 生产者
     producer:
       retries: 3 # 设置大于 0 的值，则客户端会将发送失败的记录重新发送
@@ -68,6 +69,9 @@ spring:
       # 指定消息key和消息体的编解码方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 消息幂等 开启时acks要为all
+#      properties:
+#        enable.idempotence: true
     # 消费者
     consumer:
       group-id: default-group
@@ -76,6 +80,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       max-poll-records: 50
+
     listener:
       # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
       # RECORD

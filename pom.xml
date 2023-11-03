@@ -53,6 +53,7 @@
     <druid.version>1.2.8</druid.version>
     <sa.version>1.37.0</sa.version>
     <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+    <elasticsearch.version>5.1.1</elasticsearch.version>
   </properties>
 
 
@@ -234,6 +235,12 @@
         <artifactId>sa-token-spring-boot3-starter</artifactId>
         <version>${sa.version}</version>
       </dependency>
+
+<!--      <dependency>-->
+<!--        <groupId>org.springframework.data</groupId>-->
+<!--        <artifactId>spring-data-elasticsearch</artifactId>-->
+<!--        <version>${elasticsearch.version}</version>-->
+<!--      </dependency>-->
 
 
 

@@ -9,4 +9,11 @@
     <artifactId>common-es</artifactId>
     <name>common-es</name>
     <url>http://maven.apache.org</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+        </dependency>
+    </dependencies>
 </project>

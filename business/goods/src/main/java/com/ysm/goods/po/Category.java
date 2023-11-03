@@ -32,15 +32,15 @@ public class Category implements Serializable {
     private Integer parentCategoryId;
 
     /**
-     * 创建时间
+     * 创建时间 自动填充
      */
-    @TableField(value = "created_at")
+    @TableField(value = "created_at",fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
 
     /**
-     * 更新时间
+     * 更新时间 自动填充
      */
-    @TableField(value = "updated_at")
+    @TableField(value = "updated_at",fill = FieldFill.UPDATE)
     private LocalDateTime updatedAt;
 
     /**

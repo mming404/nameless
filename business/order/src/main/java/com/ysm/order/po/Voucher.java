@@ -1,4 +1,4 @@
-package com.ysm.goods.po;
+package com.ysm.order.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 
@@ -8,76 +8,70 @@ import lombok.Data;
 
 /**
  * 
- * @TableName goods
+ * @TableName voucher
  */
-@TableName(value ="goods")
+@TableName(value ="voucher")
 @Data
-public class Goods implements Serializable {
+public class Voucher implements Serializable {
     /**
-     * goods id
+     * 优惠卷 id
      */
     @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 分类ID
+     * 优惠卷类型
      */
-    @TableField(value = "category_id")
-    private Long categoryId;
+    @TableField(value = "type")
+    private Integer type;
 
     /**
-     * 所属用户id
-     */
-    @TableField(value = "user_id")
-    private Long userId;
-
-    /**
-     * 商品名称
+     * 优惠卷名称
      */
     @TableField(value = "name")
     private String name;
 
     /**
-     * 商品标题
+     * 优惠卷标题
      */
     @TableField(value = "title")
     private String title;
 
     /**
-     * 商品详情描述
+     * 优惠卷详情描述
      */
     @TableField(value = "detail")
     private String detail;
 
     /**
-     * 商品介绍主图
-     */
-    @TableField(value = "main_img_url")
-    private String mainImgUrl;
-
-    /**
-     * 商品图片 多个图片逗号分隔
-     */
-    @TableField(value = "img_urls")
-    private String imgUrls;
-
-    /**
-     * 商品视频
-     */
-    @TableField(value = "video_url")
-    private String videoUrl;
-
-    /**
      * 售价，整数方式保存
      */
-    @TableField(value = "price")
-    private Long price;
+    @TableField(value = "pay_value")
+    private Long payValue;
 
     /**
-     * 状态  0:下架, 1:上架
+     * 抵扣价，整数方式保存
      */
-    @TableField(value = "status")
-    private Byte status;
+    @TableField(value = "actual_price")
+    private Long actualPrice;
+
+    /**
+     * 剩余库存
+     */
+    @TableField(value = "stock")
+    private Integer stock;
+
+    /**
+     * 状态  0:下架, 1:上架,2过期
+     */
+    @TableField(value = "voucher_status")
+    private Integer voucherStatus;
+
+    /**
+     * 过期时间
+     */
+    @TableField(value = "deadline")
+    private LocalDateTime deadline;
 
     /**
      * 创建时间 自动填充
@@ -96,7 +90,7 @@ public class Goods implements Serializable {
      */
     @TableField(value = "deleted")
     @TableLogic(value = "0", delval = "1")
-    private Byte deleted;
+    private Integer deleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
