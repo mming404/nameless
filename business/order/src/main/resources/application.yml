@@ -8,7 +8,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://10.21.23.9:3306/nameless_order?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://10.21.32.168:3306/nameless_order?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -34,9 +34,23 @@ spring:
         deny:
       test-while-idle: true
       test-on-borrow: true
+
+  data:
+    redis:
+      host: 119.91.222.238
+      port: 6379
+      password: 123456
+      database: 0
+      timeout: 5000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 30
+          max-wait: 10000
+          min-idle: 10
   # 卡夫卡配置
   kafka:
-    bootstrap-servers: 10.21.23.9:9092
+    bootstrap-servers: 120.27.212.143:9092
     # 生产者
     producer:
       retries: 3 # 设置大于 0 的值，则客户端会将发送失败的记录重新发送
@@ -77,7 +91,7 @@ dubbo:
     port: -1
     serialization: fastjson2
   registry:
-    address: nacos://10.21.23.34:8848?username=nacos&password=nacos
+    address: nacos://120.27.212.143:8848?username=nacos&password=nacos
 
 #mp配置
 mybatis-plus:
