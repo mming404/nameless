@@ -31,7 +31,7 @@ public class MinioUtil {
 
     private MinioClient minioClient;
 
-    private static final String PATH_PREFIX = "10.21.32.243:9000/timelinefeed/";
+    private static final String PATH_PREFIX = "minio-ysm.topviewclub.cn/timelinefeed/";
 
     @Autowired
     public void setMinioClient(@Qualifier("MinioClient") MinioClient minioClient) {
