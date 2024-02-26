@@ -9,7 +9,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://10.21.32.168:3306/nameless_search?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://10.21.32.168:3306/nameless_feed?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

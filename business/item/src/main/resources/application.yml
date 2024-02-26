@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: goods
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
   #数据源
   datasource:
     username: root
@@ -113,6 +117,8 @@ mybatis-plus:
   global-config:
     db-config:
       logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   #sql打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
