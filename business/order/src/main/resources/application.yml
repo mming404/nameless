@@ -10,30 +10,42 @@ spring:
     password: 123456
     url: jdbc:mysql://10.21.32.168:3306/nameless_order?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      initial-size: 10
-      max-active: 60
-      min-idle: 5
-      #设置防火墙 监控
-      filters: wall,mergeStat
-      filter:
-        #sql监控设置
-        stat:
-          #是否记录慢查询
-          log-slow-sql: true
-          #慢查询的sql时间  毫秒
-          slow-sql-millis: 5000
-      #监控信息页面 用户密码
-      stat-view-servlet:
-        login-username: diversion-system
-        login-password: diversion-system-backend
-        #默认开启
-        enabled: true
-        allow:
-        deny:
-      test-while-idle: true
-      test-on-borrow: true
+
+  # shardingsphere 配置数据源，给数据源起名是ds0,ds1...此处可配置多数据源
+  shardingsphere:
+    mode:
+      type: Standalone
+    datasource:
+      names: nameless_order
+      nameless_order:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://10.21.32.168:3306/nameless_order?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false
+        username: root
+        password: 123456
+
+    rules:
+      sharding:
+        tables:
+          t_order:
+            actual-data-nodes: nameless_order.t_order_$->{0..1}
+            table-strategy:
+              standard:
+                sharding-column: id
+                sharding-algorithm-name: order-inline
+            key-generate-strategy:
+              column: id
+              key-generator-name: snowflake
+        key-generators:
+          snowflake:
+            type: SNOWFLAKE
+        sharding-algorithms:
+          order-inline:
+            type: INLINE
+            props:
+              algorithm-expression: t_order_$->{id % 2}
+    props:
+      sql-show: true
 
   data:
     redis:
@@ -50,7 +62,7 @@ spring:
           min-idle: 10
   # 卡夫卡配置
   kafka:
-    bootstrap-servers: 120.27.212.143:9092
+    bootstrap-servers: 10.21.32.168:9092
     # 生产者
     producer:
       retries: 3 # 设置大于 0 的值，则客户端会将发送失败的记录重新发送
@@ -91,7 +103,7 @@ dubbo:
     port: -1
     serialization: fastjson2
   registry:
-    address: nacos://120.27.212.143:8848?username=nacos&password=nacos
+    address: nacos://10.21.32.86:8848?username=nacos&password=nacos
 
 #mp配置
 mybatis-plus:

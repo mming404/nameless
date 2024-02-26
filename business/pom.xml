@@ -11,9 +11,9 @@
     <name>business</name>
     <url>http://maven.apache.org</url>
     <modules>
-        <module>goods</module>
+        <module>item</module>
         <module>order</module>
-        <module>search</module>
+        <module>feed</module>
         <module>interaction</module>
         <module>user</module>
     </modules>

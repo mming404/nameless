@@ -244,4 +244,8 @@ public class RedisService {
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
     }
+
+//    public boolean executeLua(){
+//        redisTemplate.execute()
+//    }
 }

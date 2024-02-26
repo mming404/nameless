@@ -16,7 +16,7 @@
         <module>common-api</module>
         <module>common-kafka</module>
         <module>common-schedule</module>
-        <module>common-es</module>
+        <module>common-minio</module>
         <module>common-canal</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>

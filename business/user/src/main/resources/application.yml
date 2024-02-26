@@ -38,39 +38,39 @@ spring:
 
   #redis集群配置
   data:
-    redis:
-      host: 119.91.222.238
-      port: 6379
-      password: 123456
-      database: 0
-      timeout: 5000
-      lettuce:
-        pool:
-          max-active: 8
-          max-idle: 30
-          max-wait: 10000
-          min-idle: 10
 #    redis:
-#      password: hthredis
-#      cluster:
-#        nodes: 10.21.23.149:6371,10.21.23.149:6372,120.27.212.143:6373,120.27.212.143:6374,10.21.23.150:6375,10.21.23.150:6376
-#        max-redirects: 3
+#      host: 119.91.222.238
+#      port: 6379
+#      password: 123456
+#      database: 0
+#      timeout: 5000
 #      lettuce:
 #        pool:
-#          min-idle: 0
-#          max-idle: 8
-#          max-wait: -1ms
 #          max-active: 8
-#        cluster:
-#          refresh:
-#            adaptive: true
-#            period: 2000
+#          max-idle: 30
+#          max-wait: 10000
+#          min-idle: 10
+    redis:
+      password: hthredis
+      cluster:
+        nodes: 10.21.32.86:6371,10.21.32.86:6372,10.21.32.39:6373,10.21.32.39:6374,10.21.32.147:6375,10.21.32.147:6376
+        max-redirects: 3
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-wait: -1ms
+          max-active: 8
+        cluster:
+          refresh:
+            adaptive: true
+            period: 2000
 
 
 
   # 卡夫卡配置
   kafka:
-    bootstrap-servers: 120.27.212.143:9092
+    bootstrap-servers: 10.21.32.168:9092
 
     # 生产者
     producer:
@@ -118,7 +118,7 @@ dubbo:
     port: -1
     serialization: fastjson2
   registry:
-    address: nacos://120.27.212.143:8848?username=nacos&password=nacos
+    address: nacos://10.21.32.86:8848
 
 #mp配置
 mybatis-plus:

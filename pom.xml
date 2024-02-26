@@ -54,12 +54,19 @@
     <sa.version>1.37.0</sa.version>
     <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
     <elasticsearch.version>5.1.1</elasticsearch.version>
+    <shenyu.version>2.5.1</shenyu.version>
   </properties>
 
 
   <!-- 依赖声明 -->
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>8.5.6</version>
+      </dependency>
 
       <dependency>
         <groupId>com.alibaba</groupId>
@@ -236,6 +243,11 @@
         <version>${sa.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.apache.shenyu</groupId>
+        <artifactId>shenyu-spring-boot-starter-client-springmvc</artifactId>
+        <version>${shenyu.version}</version>
+      </dependency>
 <!--      <dependency>-->
 <!--        <groupId>org.springframework.data</groupId>-->
 <!--        <artifactId>spring-data-elasticsearch</artifactId>-->
@@ -243,7 +255,11 @@
 <!--      </dependency>-->
 
 
-
+<!--      <dependency>-->
+<!--        <groupId>org.apache.shenyu</groupId>-->
+<!--        <artifactId>shenyu-spring-boot-starter-client-springmvc</artifactId>-->
+<!--        <version>${shenyu.version}</version>-->
+<!--      </dependency>-->
     </dependencies>
   </dependencyManagement>
 
