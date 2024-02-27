@@ -1,5 +1,6 @@
 package com.ysm.item.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ysm.common.minio.MinioUtil;
 import com.ysm.item.po.Item;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author 86139
@@ -32,6 +35,14 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
         System.out.println(itemBo.toString());
         itemBo.setVideoUrl(filePath);
         Assert.isTrue(itemMapper.insert(itemBo) > 0, "上传成功");
+    }
+
+    @Override
+    public List<Item> listItem(String targetId) {
+        LambdaQueryWrapper<Item> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Item::getUserId,targetId)
+                .orderByDesc(Item::getCreatedAt);
+        return list(wrapper);
     }
 }
 

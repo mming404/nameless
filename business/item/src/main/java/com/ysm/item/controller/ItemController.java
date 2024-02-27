@@ -1,25 +1,16 @@
 package com.ysm.item.controller;
 
 import com.alibaba.fastjson2.JSON;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ysm.common.core.domain.CommonResult;
 import com.ysm.common.minio.MinioUtil;
 import com.ysm.item.po.Item;
 import com.ysm.item.service.ItemService;
-import io.minio.GetObjectArgs;
-import io.minio.RemoveObjectArgs;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * @Description: TODO
@@ -54,6 +45,11 @@ public class ItemController {
     public CommonResult<String> downloadFileTest(@RequestParam("fileName") String fileName, HttpServletResponse response) {
         return minioUtil.downloadFile(fileName, response) ?
                 CommonResult.ok("下载成功") : CommonResult.fail("下载失败");
+    }
+
+    @GetMapping("/listItem/{targetId}")
+    public CommonResult<List<Item>> listItem(@PathVariable String targetId){
+        return CommonResult.ok(itemService.listItem(targetId));
     }
 
 
