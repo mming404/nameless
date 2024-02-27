@@ -13,8 +13,8 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>goods-api</module>
-        <module>search-api</module>
+        <module>item-api</module>
+        <module>feed-api</module>
         <module>order-api</module>
         <module>interaction-api</module>
         <module>user-api</module>

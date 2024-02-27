@@ -24,7 +24,7 @@ public interface ItemService extends IService<Item> {
 
     /**
      * 全量获取某个用户主页的item列表
-     * @param targetId
+     * @param targetId 待查看的userId
      * @return
      */
     List<Item> listItem(String targetId);
