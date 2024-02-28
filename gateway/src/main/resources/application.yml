@@ -1,0 +1,159 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+server:
+  port: 8888
+  address: 0.0.0.0
+  tomcat:
+    max-http-form-post-size: 100MB
+
+#shenyu:
+#  register:
+#    registerType: http #zookeeper #etcd #nacos #consul
+#    serverLists: http://10.21.32.168:9095 #localhost:2181 #http://localhost:2379 #localhost:8848
+#    props:
+#      username: admin
+#      password: 123456Ysm@
+#  client:
+#      http:
+#        props:
+#          contextPath: /http
+#          appName: http
+#          port: 8189
+#  discovery:
+#    name: ZK
+#    type: zookeeper
+#    serverList: 127.0.0.1:2181
+#    weight: 10
+#    registerPath: /shenyu/discovery/demo_http
+
+spring:
+  application:
+    name: gateway
+  main:
+    web-application-type: reactive #gateway组件中的 spring-boot-starter-webflux 和 springboot作为web项目启动必不可少的 spring-boot-starter-web 出现冲突。
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #跨域处理 允许所有的域
+            allowedMethods: # 支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: item
+          uri: "http://localhost:8880"
+          order: 1
+          predicates:
+            - Path=/item/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+                keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
+        - id: order
+          uri: "http://localhost:8882"
+          order: 1
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+                keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
+        - id: user
+          uri: "http://localhost:8884"
+          order: 1
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 30
+                redis-rate-limiter.burstCapacity: 60
+                keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
+        - id: interaction
+          uri: "http://localhost:8881"
+          order: 1
+          predicates:
+            - Path=/interaction/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 30
+                redis-rate-limiter.burstCapacity: 60
+                keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
+        - id: feed
+          uri: "http://localhost:8883"
+          order: 1
+          predicates:
+            - Path=/feed/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 30
+                redis-rate-limiter.burstCapacity: 60
+                keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
+
+  #redis集群配置
+  data:
+    redis:
+      password: hthredis
+      cluster:
+        nodes: 10.21.32.86:6371,10.21.32.86:6372,10.21.32.39:6373,10.21.32.39:6374,10.21.32.141:6375,10.21.32.141:6376
+        max-redirects: 3
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-wait: -1ms
+          max-active: 8
+        cluster:
+          refresh:
+            adaptive: true
+            period: 2000
+
+#dubbo配置
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: fastjson2
+  registry:
+    address: nacos://10.21.32.86:8848
+
+
+logging:
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.test.bonuspoint: info
+    org.apache.shenyu.test.lottery: debug
+    org.apache.shenyu.test: debug

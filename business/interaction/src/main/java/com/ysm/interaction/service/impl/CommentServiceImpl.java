@@ -1,20 +1,45 @@
 package com.ysm.interaction.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ysm.common.redis.service.RedisService;
 import com.ysm.interaction.po.Comment;
 import com.ysm.interaction.service.CommentService;
 import com.ysm.interaction.mapper.CommentMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /**
-* @author 86139
-* @description 针对表【comment】的数据库操作Service实现
-* @createDate 2024-02-27 22:08:42
-*/
+ * @author 86139
+ * @description 针对表【comment】的数据库操作Service实现
+ * @createDate 2024-02-27 22:08:42
+ */
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
-    implements CommentService{
+        implements CommentService {
 
+
+    @Autowired
+    private RedisService redisService;
+
+    @Override
+    public void comment(Comment comment) {
+        redisService.setCacheObject("name","ysm",10L, TimeUnit.SECONDS);
+        save(comment);
+    }
+
+    @Override
+    public List<Comment> getCommentList(Integer itemId, Integer current) {
+        LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
+        Page<Comment> commentPage = new Page<>(current,20);
+        wrapper.eq(Comment::getItemId, itemId)
+                .orderByDesc(Comment::getCreatedAt);
+        return page(commentPage,wrapper).getRecords();
+    }
 }
 
 

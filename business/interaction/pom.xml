@@ -63,10 +63,10 @@
             <artifactId>common-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>cn.club.ysm</groupId>
-            <artifactId>common-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.club.ysm</groupId>-->
+<!--            <artifactId>common-security</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -78,10 +78,10 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -97,6 +97,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.club.ysm</groupId>
+            <artifactId>common-redis</artifactId>
         </dependency>
     </dependencies>
 

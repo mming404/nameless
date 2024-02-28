@@ -8,11 +8,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName comment
+ * @TableName follow
  */
-@TableName(value ="comment")
+@TableName(value ="follow")
 @Data
-public class Comment implements Serializable {
+public class Follow implements Serializable {
     /**
      * 
      */
@@ -20,22 +20,16 @@ public class Comment implements Serializable {
     private Long id;
 
     /**
-     * 
+     * 被关注者id
      */
-    @TableField(value = "item_id")
-    private Long itemId;
+    @TableField(value = "following_id")
+    private Long followingId;
 
     /**
-     * 
+     * 关注者id
      */
-    @TableField(value = "user_id")
-    private Long userId;
-
-    /**
-     * 
-     */
-    @TableField(value = "content")
-    private String content;
+    @TableField(value = "follower_id")
+    private Long followerId;
 
     /**
      * 
@@ -53,7 +47,6 @@ public class Comment implements Serializable {
      * 
      */
     @TableField(value = "deleted")
-    @TableLogic(value = "0", delval = "1")
     private Byte deleted;
 
     @TableField(exist = false)

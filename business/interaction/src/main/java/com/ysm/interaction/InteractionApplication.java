@@ -11,7 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Version V1.0
  **/
 @EnableDubbo
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.ysm.interaction","com.ysm.common"})
+
 public class InteractionApplication {
     public static void main(String[] args) {
         SpringApplication.run(InteractionApplication.class,args);
