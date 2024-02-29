@@ -6,6 +6,7 @@ import com.ysm.interaction.api.FollowServiceIRPC;
 import com.ysm.interaction.po.Follow;
 import com.ysm.interaction.service.FollowService;
 import com.ysm.interaction.mapper.FollowMapper;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2024-02-28 22:02:33
 */
 @Service
+@DubboService
 public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> implements FollowService, FollowServiceIRPC {
 
     @Override

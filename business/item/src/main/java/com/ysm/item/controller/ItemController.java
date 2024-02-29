@@ -47,7 +47,7 @@ public class ItemController {
                 CommonResult.ok("下载成功") : CommonResult.fail("下载失败");
     }
 
-    @GetMapping("/listItem/{targetId}")
+    @GetMapping("/list/{targetId}")
     public CommonResult<List<Item>> listItem(@PathVariable String targetId){
         return CommonResult.ok(itemService.listItem(targetId));
     }
