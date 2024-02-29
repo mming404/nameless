@@ -29,7 +29,7 @@ public class CommentController {
     }
 
     @GetMapping("/comment")
-    public CommonResult<List<Comment>> comment(@RequestParam Integer itemId,@RequestParam Integer current){
+    public CommonResult<List<Comment>> comment(@RequestParam Long itemId,@RequestParam Integer current){
         return CommonResult.ok(commentService.getCommentList(itemId,current));
     }
 }

@@ -47,6 +47,7 @@ public class Follow implements Serializable {
      * 
      */
     @TableField(value = "deleted")
+    @TableLogic(value = "0", delval = "1")
     private Byte deleted;
 
     @TableField(exist = false)

@@ -103,6 +103,12 @@
             <groupId>cn.club.ysm</groupId>
             <artifactId>common-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.club.ysm</groupId>
+            <artifactId>interaction-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

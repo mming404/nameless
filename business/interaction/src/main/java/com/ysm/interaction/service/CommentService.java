@@ -25,5 +25,5 @@ public interface CommentService extends IService<Comment> {
      * @param itemId
      * @return
      */
-    List<Comment> getCommentList(Integer itemId,Integer current);
+    List<Comment> getCommentList(Long itemId,Integer current);
 }

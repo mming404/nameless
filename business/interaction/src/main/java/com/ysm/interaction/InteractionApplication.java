@@ -1,6 +1,7 @@
 package com.ysm.interaction;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @EnableDubbo
 @SpringBootApplication(scanBasePackages = {"com.ysm.interaction","com.ysm.common"})
-
+@MapperScan("com.ysm.interaction.mapper")
 public class InteractionApplication {
     public static void main(String[] args) {
         SpringApplication.run(InteractionApplication.class,args);

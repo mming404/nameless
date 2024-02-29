@@ -33,7 +33,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     }
 
     @Override
-    public List<Comment> getCommentList(Integer itemId, Integer current) {
+    public List<Comment> getCommentList(Long itemId, Integer current) {
         LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
         Page<Comment> commentPage = new Page<>(current,20);
         wrapper.eq(Comment::getItemId, itemId)
