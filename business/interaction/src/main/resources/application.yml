@@ -4,10 +4,6 @@ server:
 spring:
   application:
     name: interaction
-
-
-
-
   #数据源
   datasource:
       username: root

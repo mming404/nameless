@@ -132,6 +132,12 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.club.ysm</groupId>
+            <artifactId>interaction-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.shenyu</groupId>
             <artifactId>shenyu-spring-boot-starter-client-springmvc</artifactId>
         </dependency>

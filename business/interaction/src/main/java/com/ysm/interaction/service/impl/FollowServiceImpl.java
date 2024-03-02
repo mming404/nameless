@@ -9,6 +9,9 @@ import com.ysm.interaction.mapper.FollowMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
 * @author 86139
 * @description 针对表【follow】的数据库操作Service实现
@@ -16,7 +19,7 @@ import org.springframework.stereotype.Service;
 */
 @Service
 @DubboService
-public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> implements FollowService, FollowServiceIRPC {
+public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> implements FollowServiceIRPC, FollowService{
 
     @Override
     public void follow(Long followerId, Long followingId) {
@@ -39,6 +42,17 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
         LambdaQueryWrapper<Follow> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Follow::getFollowingId,userId);
         return count(wrapper);
+    }
+
+    @Override
+    public List<Long> listFansId(Long userId) {
+        LambdaQueryWrapper<Follow> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Follow::getFollowingId,userId);
+        return list(wrapper)
+                .stream()
+                .mapToLong(Follow::getFollowerId)
+                .boxed()
+                .collect(Collectors.toList());
     }
 }
 

@@ -3,6 +3,8 @@ package com.ysm.interaction.service;
 import com.ysm.interaction.po.Follow;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author 86139
 * @description 针对表【follow】的数据库操作Service
@@ -32,4 +34,12 @@ public interface FollowService extends IService<Follow> {
      * @return 粉丝数
      */
     Long getFollowerCount(Long userId);
+
+
+    /**
+     * 获取某人的粉丝列表
+     * @param userId
+     * @return
+     */
+    List<Long> listFansId(Long userId);
 }

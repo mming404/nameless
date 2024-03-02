@@ -29,10 +29,10 @@ public class ItemController {
     private ItemService itemService;
 
 
-    @PostMapping(value = "/item")
+    @PostMapping(value = "/post")
     public CommonResult<String> item(@RequestPart("file") MultipartFile file, @RequestPart("itemBo") String itemBo) throws Exception {
         itemService.postItem(file,JSON.parseObject(itemBo,Item.class));
-        return CommonResult.ok("上传成功");
+        return CommonResult.ok("发布成功");
     }
 
     @PostMapping("/upload")

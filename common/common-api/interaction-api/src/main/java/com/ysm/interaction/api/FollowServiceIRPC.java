@@ -1,5 +1,7 @@
 package com.ysm.interaction.api;
 
+import java.util.List;
+
 /**
  * @Description: TODO
  * @Author MiSinG
@@ -9,4 +11,6 @@ package com.ysm.interaction.api;
 public interface FollowServiceIRPC {
 
     Long getFollowerCount(Long userId);
+
+    List<Long> listFansId(Long userId);
 }
