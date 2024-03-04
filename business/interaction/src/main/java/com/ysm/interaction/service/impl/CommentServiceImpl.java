@@ -28,7 +28,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
     @Override
     public void comment(Comment comment) {
-        redisService.setCacheObject("name","ysm",10L, TimeUnit.SECONDS);
         save(comment);
     }
 

@@ -14,7 +14,7 @@ import java.util.Map;
  * @Date 2024/2/25
  * @Version V1.0
  **/
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.ysm.feed","com.ysm.common"})
 @EnableDubbo
 public class FeedApplication {
 

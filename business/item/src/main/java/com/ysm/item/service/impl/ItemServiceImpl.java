@@ -3,13 +3,17 @@ package com.ysm.item.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ysm.common.core.utils.bean.BeanUtils;
 import com.ysm.common.minio.MinioUtil;
 import com.ysm.common.redis.service.RedisService;
 import com.ysm.interaction.api.FollowServiceIRPC;
+import com.ysm.item.api.ItemServiceIRPC;
+import com.ysm.item.dto.ItemDTO;
 import com.ysm.item.po.Item;
 import com.ysm.item.service.ItemService;
 import com.ysm.item.mapper.ItemMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -28,8 +32,9 @@ import java.util.concurrent.CompletableFuture;
  * @createDate 2024-02-26 17:34:23
  */
 @Service
+@DubboService
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
-        implements ItemService {
+        implements ItemService, ItemServiceIRPC {
 
     @Autowired
     private ItemMapper itemMapper;
@@ -84,6 +89,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
         wrapper.eq(Item::getUserId, targetId)
                 .orderByDesc(Item::getCreatedAt);
         return list(wrapper);
+    }
+
+    @Override
+    public ItemDTO getItem(Long id){
+        ItemDTO itemDTO = new ItemDTO();
+        BeanUtils.copyBeanProp(itemDTO,getById(id));
+        return itemDTO;
     }
 }
 
