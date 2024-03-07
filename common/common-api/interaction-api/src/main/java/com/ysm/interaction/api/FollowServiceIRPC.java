@@ -13,4 +13,6 @@ public interface FollowServiceIRPC {
     Long getFollowerCount(Long userId);
 
     List<Long> listFansId(Long userId);
+
+    List<Long> listSuperId(Long userId);
 }

@@ -15,12 +15,13 @@ import java.util.List;
  * @Version V1.0
  **/
 @RestController
+@RequestMapping("/feed")
 public class FeedController {
 
     @Autowired
     private FeedService feedService;
 
-    @GetMapping("/feed/{userId}")
+    @GetMapping("/{userId}")
     public CommonResult<List<FeedVo>> feed(@PathVariable Long userId, @RequestParam(required = false,defaultValue = "6") Integer size){
         return CommonResult.ok(feedService.feed(userId,size));
     }

@@ -8,7 +8,7 @@
     </parent>
     <groupId>cn.club.ysm</groupId>
     <artifactId>feed</artifactId>
-    <name>search</name>
+    <name>feed</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -61,10 +61,6 @@
             <artifactId>common-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>cn.club.ysm</groupId>
-            <artifactId>common-security</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -76,10 +72,6 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -113,6 +105,12 @@
         <dependency>
             <groupId>cn.club.ysm</groupId>
             <artifactId>item-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.club.ysm</groupId>
+            <artifactId>interaction-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

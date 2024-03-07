@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 @DubboService
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
-        implements ItemService, ItemServiceIRPC {
+        implements ItemServiceIRPC, ItemService {
 
     @Autowired
     private ItemMapper itemMapper;
@@ -67,7 +67,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
             RedisTemplate redisTemplate = redisService.redisTemplate;
             // TODO: 2024/3/2 这里key结构的设计有待考量 考虑到数据倾斜问题
             redisTemplate.opsForZSet().add("feed:outbox:" + itemBo.getUserId().toString(),
-                    itemBo.getId().toString(),
+                    itemBo.getId(),
                     (double) itemBo.getCreatedAt().toEpochSecond(ZoneOffset.of("+8")));
         } else {
             // TODO: 2024/3/2 不是大v rpc关系服务获取粉丝列表

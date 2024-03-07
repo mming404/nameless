@@ -27,10 +27,10 @@ public class UserInboxListener {
     @KafkaListener(topics = "user_inbox",groupId = KafkaConstant.DEFAULT_GROUP)
     public void listenInbox(ConsumerRecord<String, String> record, Acknowledgment ack){
         String value = record.value();
-        HashMap hashMap = JSON.parseObject(value, HashMap.class);
+        HashMap<String,String> hashMap = JSON.parseObject(value, HashMap.class);
         redisTemplate.opsForZSet().add("feed:inbox:"+hashMap.get("fanId"),
-                hashMap.get("itemId"),
-                Double.parseDouble(hashMap.get("score").toString()));
+                Long.valueOf(hashMap.get("itemId")),
+                Double.parseDouble(hashMap.get("score")));
         ack.acknowledge();
     }
 }

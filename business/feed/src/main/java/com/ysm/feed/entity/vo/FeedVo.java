@@ -13,10 +13,16 @@ import lombok.Data;
 @Data
 public class FeedVo {
 
-    private ItemDTO itemDTO;
+    private ItemDTO item;
 
-    private UserDTO userDTO;
+    private UserDTO author;
 
-    private StatisticsVo statisticsVo;
+    private StatisticsVo statistics;
+
+    private Integer isLike;
+
+    private Integer isCollect;
+
+    private Integer isFollow;
 
 }
