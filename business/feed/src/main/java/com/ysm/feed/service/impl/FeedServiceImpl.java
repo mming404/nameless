@@ -1,5 +1,6 @@
 package com.ysm.feed.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.ysm.feed.entity.vo.FeedVo;
 import com.ysm.feed.service.FeedService;
 import com.ysm.interaction.api.FollowServiceIRPC;
@@ -8,6 +9,8 @@ import com.ysm.item.dto.ItemDTO;
 import com.ysm.user.api.UserServiceI;
 import com.ysm.user.dto.UserDTO;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -42,13 +46,18 @@ public class FeedServiceImpl implements FeedService {
     @Autowired
     private KafkaTemplate kafkaTemplate;
 
+    @Autowired
+    private RedissonClient redissonClient;
+
     @Override
     public List<FeedVo> feed(Long userId, Integer size) {
-        ArrayList<FeedVo> feedVos = new ArrayList<>();        Long lastOffset = (Long) redisTemplate.opsForValue().get(userId.toString()+":feed:"+"offset");
+        ArrayList<FeedVo> feedVos = new ArrayList<>();
+        Long lastOffset = (Long) redisTemplate.opsForValue().get(userId.toString()+":feed:"+"offset");
         if (lastOffset == null)lastOffset = 0L;
         Set<ZSetOperations.TypedTuple<Long>> itemSet = new HashSet<>();
         // TODO: 2024/3/4 去自己的收件箱获取id 怎么分页？ 基于时间戳去分页？
-        Set<ZSetOperations.TypedTuple<Long>> selfSet = redisTemplate.opsForZSet().rangeByScoreWithScores("feed:inbox:" + userId,  lastOffset+1, System.currentTimeMillis());
+        Set<ZSetOperations.TypedTuple<Long>> selfSet = redisTemplate.opsForZSet()
+                .rangeByScoreWithScores("feed:inbox:" + userId,  lastOffset+1, System.currentTimeMillis());
         if (selfSet != null && !selfSet.isEmpty()) {
             itemSet.addAll(selfSet);
         }
@@ -56,17 +65,25 @@ public class FeedServiceImpl implements FeedService {
         List<Long> fansId = followServiceIRPC.listSuperId(userId);
         Long finalLastOffset = lastOffset;
         fansId.forEach(id ->{
-            Set<ZSetOperations.TypedTuple<Long>> tempSet = redisTemplate.opsForZSet().rangeByScoreWithScores("feed:outbox:" + id.toString(), finalLastOffset +1, System.currentTimeMillis());
+            Set<ZSetOperations.TypedTuple<Long>> tempSet = redisTemplate.opsForZSet()
+                    .rangeByScoreWithScores("feed:outbox:" + id.toString(), finalLastOffset +1, System.currentTimeMillis());
             if (tempSet != null && !tempSet.isEmpty()) {
                 itemSet.addAll(tempSet);
             }
         });
-        // TODO: 2024/3/4 最后聚合itemid   聚合需求是什么  1.去重  2.布隆过滤  3.分页
+
+        //布隆设置  个人数据量在50万   误判率在1%以下
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(userId + ":feed:" + "bloom");
+        bloomFilter.tryInit(500000L,0.01);
+        // TODO: 2024/3/4 最后聚合itemId   聚合需求是什么  1.去重  2.布隆过滤  3.分页
         List<ZSetOperations.TypedTuple<Long>> sortSet = itemSet.stream()
                 .distinct()
+                .filter(longTypedTuple -> !bloomFilter.contains(longTypedTuple.getValue()))  //使用布隆过滤重复itemId
                 .sorted((o1, o2) -> (int) (o1.getScore() - o2.getScore()))
-                .limit(size)
+                .limit(size)  //分页
+                .peek(e -> bloomFilter.add(e.getValue()))  //加入过滤器
                 .collect(Collectors.toList());
+
 
         if(!sortSet.isEmpty()){
             ZSetOperations.TypedTuple<Long> lastTuple = sortSet.get(sortSet.size() - 1);
@@ -76,7 +93,7 @@ public class FeedServiceImpl implements FeedService {
         }
 
 
-        // TODO: 2024/3/4 遍历itemid 聚合信息
+        // TODO: 2024/3/4 遍历itemId 聚合信息
         sortSet.forEach(e->{
             FeedVo feedVo = new FeedVo();
             Long itemId = e.getValue();
@@ -91,8 +108,8 @@ public class FeedServiceImpl implements FeedService {
 
             feedVos.add(feedVo);
         });
-        // TODO: 2024/3/7 异步去删除已读item id
-
+        // TODO: 2024/3/7 异步mq去删除已读item id
+        kafkaTemplate.send("user_inbox_del",userId+":"+lastOffset);
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisDelayQueueRunner implements CommandLineRunner {
 
-    @Autowired
+    @Resource
     private RedisDelayQueueUtil redisDelayQueueUtil;
 
     @Autowired

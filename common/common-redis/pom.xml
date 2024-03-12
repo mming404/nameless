@@ -29,6 +29,13 @@
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
 
+        <!--redission-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.10.5</version>
+        </dependency>
+
         <dependency>
             <groupId>cn.club.ysm</groupId>
             <artifactId>common-core</artifactId>
@@ -38,5 +45,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+
+
     </dependencies>
 </project>
