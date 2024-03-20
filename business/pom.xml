@@ -16,5 +16,6 @@
         <module>feed</module>
         <module>interaction</module>
         <module>user</module>
+        <module>count</module>
     </modules>
 </project>
