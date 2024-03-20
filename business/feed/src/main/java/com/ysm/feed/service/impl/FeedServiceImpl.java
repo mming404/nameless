@@ -1,6 +1,5 @@
 package com.ysm.feed.service.impl;
 
-import com.alibaba.fastjson2.JSON;
 import com.ysm.feed.entity.vo.FeedVo;
 import com.ysm.feed.service.FeedService;
 import com.ysm.interaction.api.FollowServiceIRPC;
@@ -16,10 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
