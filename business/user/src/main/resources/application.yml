@@ -8,8 +8,8 @@ spring:
   #数据源
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://10.21.32.168:3306/nameless_user?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    password: '040711'
+    url: jdbc:mysql://10.21.32.168:3306/tlf_user?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -38,18 +38,6 @@ spring:
 
   #redis集群配置
   data:
-#    redis:
-#      host: 119.91.222.238
-#      port: 6379
-#      password: 123456
-#      database: 0
-#      timeout: 5000
-#      lettuce:
-#        pool:
-#          max-active: 8
-#          max-idle: 30
-#          max-wait: 10000
-#          min-idle: 10
     redis:
       password: hthredis
       cluster:

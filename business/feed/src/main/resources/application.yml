@@ -4,38 +4,6 @@ server:
 spring:
   application:
     name: feed
-
-  #数据源
-  datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://10.21.32.168:3306/nameless_feed?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      initial-size: 10
-      max-active: 60
-      min-idle: 5
-      #设置防火墙 监控
-      filters: wall,mergeStat
-      filter:
-        #sql监控设置
-        stat:
-          #是否记录慢查询
-          log-slow-sql: true
-          #慢查询的sql时间  毫秒
-          slow-sql-millis: 5000
-      #监控信息页面 用户密码
-      stat-view-servlet:
-        login-username: diversion-system
-        login-password: diversion-system-backend
-        #默认开启
-        enabled: true
-        allow:
-        deny:
-      test-while-idle: true
-      test-on-borrow: true
-
   data:
     redis:
       password: hthredis

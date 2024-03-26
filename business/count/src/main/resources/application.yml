@@ -3,63 +3,24 @@ server:
 
 spring:
   application:
-    name: order
-  #数据源
-  datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://10.21.32.168:3306/nameless_order?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  # shardingsphere 配置数据源，给数据源起名是ds0,ds1...此处可配置多数据源
-  shardingsphere:
-    mode:
-      type: Standalone
-    datasource:
-      names: nameless_order
-      nameless_order:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://10.21.32.168:3306/nameless_order?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false
-        username: root
-        password: 123456
-
-    rules:
-      sharding:
-        tables:
-          t_order:
-            actual-data-nodes: nameless_order.t_order_$->{0..1}
-            table-strategy:
-              standard:
-                sharding-column: id
-                sharding-algorithm-name: order-inline
-            key-generate-strategy:
-              column: id
-              key-generator-name: snowflake
-        key-generators:
-          snowflake:
-            type: SNOWFLAKE
-        sharding-algorithms:
-          order-inline:
-            type: INLINE
-            props:
-              algorithm-expression: t_order_$->{id % 2}
-    props:
-      sql-show: true
-
+    name: count
   data:
     redis:
-      host: 119.91.222.238
-      port: 6379
-      password: 123456
-      database: 0
-      timeout: 5000
+      password: hthredis
+      cluster:
+        nodes: 10.21.32.86:6371,10.21.32.86:6372,10.21.32.39:6373,10.21.32.39:6374,10.21.32.141:6375,10.21.32.141:6376
+        max-redirects: 3
       lettuce:
         pool:
+          min-idle: 0
+          max-idle: 8
+          max-wait: -1ms
           max-active: 8
-          max-idle: 30
-          max-wait: 10000
-          min-idle: 10
+        cluster:
+          refresh:
+            adaptive: true
+            period: 2000
+
   # 卡夫卡配置
   kafka:
     bootstrap-servers: 10.21.32.168:9092
@@ -103,15 +64,7 @@ dubbo:
     port: -1
     serialization: fastjson2
   registry:
-    address: nacos://10.21.32.86:8848?username=nacos&password=nacos
-
-#mp配置
+    address: nacos://10.21.32.86:8848
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
-  #配置逻辑删除字段
-  global-config:
-    db-config:
-      logic-delete-field: deleted
-  #sql打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

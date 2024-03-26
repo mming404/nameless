@@ -72,11 +72,11 @@ spring:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
                 keyResolver: '#{@ipAddressKeyResolver}' # spEL表达式
-        - id: order
+        - id: count
           uri: "http://localhost:8882"
           order: 1
           predicates:
-            - Path=/order/**
+            - Path=/count/**
           filters:
             - StripPrefix=1
             - name: RequestRateLimiter
