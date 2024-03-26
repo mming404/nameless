@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ysm.interaction.po.Collect;
 import com.ysm.interaction.service.CollectService;
 import com.ysm.interaction.mapper.CollectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -22,12 +24,17 @@ import java.util.stream.LongStream;
 public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect>
     implements CollectService{
 
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
+
     @Override
     public void collect(Long itemId, Long userId) {
         Collect collect = new Collect();
         collect.setUserId(userId);
         collect.setItemId(itemId);
-        save(collect);
+        if (save(collect)) {
+            kafkaTemplate.send("item_count_collect",itemId+":1");
+        }
     }
 
     @Override
@@ -35,7 +42,9 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect>
         LambdaQueryWrapper<Collect> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Collect::getUserId,userId)
                 .eq(Collect::getItemId,itemId);
-        remove(wrapper);
+        if (remove(wrapper)) {
+            kafkaTemplate.send("item_count_collect",itemId+":-1");
+        }
     }
 
     @Override

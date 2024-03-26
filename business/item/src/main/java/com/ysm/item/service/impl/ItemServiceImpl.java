@@ -14,7 +14,9 @@ import com.ysm.item.service.ItemService;
 import com.ysm.item.mapper.ItemMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,10 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item>
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    @Qualifier(value = "redissonClient")
+    private RedissonClient redissonClient;
 
     @DubboReference
     private FollowServiceIRPC followServiceIRPC;

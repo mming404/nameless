@@ -8,6 +8,7 @@ import com.ysm.interaction.po.Comment;
 import com.ysm.interaction.service.CommentService;
 import com.ysm.interaction.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +27,15 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
+
     @Override
     public void comment(Comment comment) {
-        save(comment);
+        if (save(comment)){
+            // 发送消息队列  异步更新计数
+            kafkaTemplate.send("item_count_comment",comment.getItemId()+":1");
+        }
     }
 
     @Override

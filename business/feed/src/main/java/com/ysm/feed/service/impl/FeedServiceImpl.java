@@ -1,6 +1,9 @@
 package com.ysm.feed.service.impl;
 
+import com.ysm.count.api.CountServiceIRPC;
+import com.ysm.count.dto.StatisticsDTO;
 import com.ysm.feed.entity.vo.FeedVo;
+import com.ysm.feed.entity.vo.StatisticsVo;
 import com.ysm.feed.service.FeedService;
 import com.ysm.interaction.api.FollowServiceIRPC;
 import com.ysm.item.api.ItemServiceIRPC;
@@ -35,6 +38,9 @@ public class FeedServiceImpl implements FeedService {
 
     @DubboReference
     private FollowServiceIRPC followServiceIRPC;
+
+    @DubboReference
+    private CountServiceIRPC countServiceIRPC;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -80,34 +86,32 @@ public class FeedServiceImpl implements FeedService {
                 .peek(e -> bloomFilter.add(e.getValue()))  //加入过滤器
                 .collect(Collectors.toList());
 
-
+        //记录时间戳的offset 同步更新到redis进行存储
         if(!sortSet.isEmpty()){
             ZSetOperations.TypedTuple<Long> lastTuple = sortSet.get(sortSet.size() - 1);
-            //offset 更新redis
             lastOffset = Objects.requireNonNull(lastTuple.getScore()).longValue();
             redisTemplate.opsForValue().set(userId +":feed:"+"offset",lastOffset);
         }
-
 
         // TODO: 2024/3/4 遍历itemId 聚合信息
         sortSet.forEach(e->{
             FeedVo feedVo = new FeedVo();
             Long itemId = e.getValue();
-            // TODO: 2024/3/4 获取作者信息
             // TODO: 2024/3/4 获取item详情
             ItemDTO item = itemServiceIRPC.getItem(itemId);
+            feedVo.setItem(item);
+            // TODO: 2024/3/4 获取作者信息
             UserDTO author = userServiceI.getUserDTOById(item.getUserId());
             feedVo.setAuthor(author);
-            feedVo.setItem(item);
             // TODO: 2024/3/4 获取统计数据
+            StatisticsDTO statisticsDTO = countServiceIRPC.getStatisticsDTO(itemId);
+            feedVo.setStatistics(StatisticsVo.getStatisticsVo(statisticsDTO));
             // TODO: 2024/3/4 用户存在性判断
 
             feedVos.add(feedVo);
         });
         // TODO: 2024/3/7 异步mq去删除已读item id
         kafkaTemplate.send("user_inbox_del",userId+":"+lastOffset);
-
-
 
 
         return feedVos;

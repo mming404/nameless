@@ -17,12 +17,12 @@ import org.springframework.context.annotation.Configuration;
 public class RedissionConfig {
     private final String REDISSON_PREFIX = "redis://";
     private final RedisProperties redisProperties;
- 
+
     public RedissionConfig(RedisProperties redisProperties) {
         this.redisProperties = redisProperties;
     }
- 
-    @Bean
+
+    @Bean(name = "redissonClient")
     public RedissonClient redissonClient() {
         Config config = new Config();
 //        String url = REDISSON_PREFIX + redisProperties.getHost() + ":" + redisProperties.getPort();
@@ -33,7 +33,7 @@ public class RedissionConfig {
 //            .setDatabase(redisProperties.getDatabase())
 //            .setPingConnectionInterval(2000);
 //        config.setLockWatchdogTimeout(10000L);
- 
+
         // 实际开发过程中应该为cluster或者哨兵模式，这里以cluster为例
         config.useClusterServers()
                 .addNodeAddress("redis://10.21.32.86:6371")
