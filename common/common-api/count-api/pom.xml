@@ -25,5 +25,11 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>cn.club.ysm</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
     </dependencies>
+
 </project>
