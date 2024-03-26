@@ -20,7 +20,7 @@ public class CountController {
     @Autowired
     private CountService countService;
 
-    @PostMapping("/")
+    @PostMapping("/like")
     public CommonResult<Integer> like(@RequestBody LikeBo likeBo){
         return CommonResult.ok(countService.like(likeBo));
     }
