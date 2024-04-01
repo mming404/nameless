@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * @Description: TODO
@@ -34,6 +36,7 @@ public class CountListener {
 
     @PostConstruct
     private void postConstructorInit() {
+
         // 批量处理comment
         commentBatchUtil = BatchUtil.getInstance((input, handlerType) -> {
             System.out.println("处理类型:" + handlerType + ",接受到批量comment请求参数:" + input);
